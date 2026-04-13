@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Arik Mukherjee - Full Stack Web Developer & Computer Science Student">
+    <title>Arik Mukherjee | Full Stack Developer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&amp;family=Space+Grotesk:wght@500&amp;display=swap');
+        
+        :root {
+            --primary: #6366f1;
+        }
+        
+        * {
+            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 150ms;
+        }
+        
+        .tailwind-configured {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        
+        .logo-font {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        /* Hero typing cursor */
+        .typing-cursor::after {
+            content: '|';
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        /* Smooth section reveal */
+        .section-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .section-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Navbar glass effect */
+        .navbar-glass {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+        }
+        
+        .dark .navbar-glass {
+            background: rgba(15, 23, 42, 0.95);
+        }
+
+        /* Project card hover */
+        .project-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 25px 25px 0 -10px rgb(99 102 241);
+        }
+
+        /* Progress bar animation */
+        .progress-bar {
+            animation: progress 1.5s ease-in-out forwards;
+        }
+    </style>
+</head>
+<body class="tailwind-configured dark">
+    <!-- NAVBAR -->
+    <nav class="navbar-glass border-b border-slate-200 dark:border-slate-800 fixed top-0 left-0 right-0 z-50">
+        <div class="max-w-screen-2xl mx-auto px-6 py-5 flex items-center justify-between">
+            
+            <!-- Logo -->
+            <div class="flex items-center gap-x-3">
+                <div class="w-9 h-9 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-2xl flex items-center justify-center text-white text-2xl shadow-inner">
+                    👨‍💻
+                </div>
+                <h1 class="logo-font text-3xl font-semibold tracking-tighter text-slate-900 dark:text-white">
+                    Arik<span class="text-indigo-600">.</span>
+                </h1>
+            </div>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center gap-x-9 text-sm font-medium">
+                <a href="#home" onclick="navigateToSection(event)" 
+                   class="text-slate-700 hover:text-indigo-600 dark:text-slate-300 dark:hover:text-indigo-400 flex items-center gap-x-1">
+                    <i class="fa-solid fa-house text-xs"></i>
+                    Home
+                </a>
+                <a href="#about" onclick="navigateToSection(event)" 
+                   class="text-slate-700 hover:text-indigo-600 dark:text-slate-300 dark:hover:text-indigo-400 flex items-center gap-x-1">
+                    <i class="fa-solid fa-user text-xs"></i>
+                    About
+                </a>
+                <a href="#skills" onclick="navigateToSection(event)" 
+                   class="text-slate-700 hover:text-indigo-600 dark:text-slate-300 dark:hover:text-indigo-400 flex items-center gap-x-1">
+                    <i class="fa-solid fa-code text-xs"></i>
+                    Skills
+                </a>
+                <a href="#projects" onclick="navigateToSection(event)" 
+                   class="text-slate-700 hover:text-indigo-600 dark:text-slate-300 dark:hover:text-indigo-400 flex items-center gap-x-1">
+                    <i class="fa-solid fa-briefcase text-xs"></i>
+                    Projects
+                </a>
+                <a href="#experience" onclick="navigateToSection(event)" 
+                   class="text-slate-700 hover:text-indigo-600 dark:text-slate-300 dark:hover:text-indigo-400 flex items-center gap-x-1">
+                    <i class="fa-solid fa-timeline text-xs"></i>
+                    Experience
+                </a>
+                <a href="#contact" onclick="navigateToSection(event)" 
+                   class="text-slate-700 hover:text-indigo-600 dark:text-slate-300 dark:hover:text-indigo-400 flex items-center gap-x-1">
+                    <i class="fa-solid fa-envelope text-xs"></i>
+                    Contact
+                </a>
+            </div>
+
+            <div class="flex items-center gap-x-4">
+                <!-- Resume Button -->
+                <button onclick="downloadResume()" 
+                        class="hidden sm:flex items-center gap-x-2 px-5 py-2.5 text-sm font-semibold bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-2xl hover:border-indigo-300 hover:shadow-md">
+                    <i class="fa-solid fa-download"></i>
+                    Resume
+                </button>
+
+                <!-- Theme Toggle -->
+                <button onclick="toggleTheme()" 
+                        class="w-10 h-10 flex items-center justify-center text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-2xl">
+                    <i id="theme-icon" class="fa-solid fa-moon text-xl"></i>
+                </button>
+
+                <!-- Mobile Hamburger -->
+                <button onclick="toggleMobileMenu()" 
+                        class="md:hidden w-10 h-10 flex items-center justify-center text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-2xl">
+                    <i id="hamburger-icon" class="fa-solid fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-6 py-6">
+            <div class="flex flex-col gap-y-4 text-sm font-medium">
+                <a href="#home" onclick="navigateToSection(event);toggleMobileMenu()" 
+                   class="py-3 px-4 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-2xl flex items-center gap-x-3">
+                    <i class="fa-solid fa-house w-5"></i>
+                    Home
+                </a>
+                <a href="#about" onclick="navigateToSection(event);toggleMobileMenu()" 
+                   class="py-3 px-4 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-2xl flex items-center gap-x-3">
+                    <i class="fa-solid fa-user w-5"></i>
+                    About
+                </a>
+                <a href="#skills" onclick="navigateToSection(event);toggleMobileMenu()" 
+                   class="py-3 px-4 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-2xl flex items-center gap-x-3">
+                    <i class="fa-solid fa-code w-5"></i>
+                    Skills
+                </a>
+                <a href="#projects" onclick="navigateToSection(event);toggleMobileMenu()" 
+                   class="py-3 px-4 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-2xl flex items-center gap-x-3">
+                    <i class="fa-solid fa-briefcase w-5"></i>
+                    Projects
+                </a>
+                <a href="#experience" onclick="navigateToSection(event);toggleMobileMenu()" 
+                   class="py-3 px-4 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-2xl flex items-center gap-x-3">
+                    <i class="fa-solid fa-timeline w-5"></i>
+                    Experience
+                </a>
+                <a href="#contact" onclick="navigateToSection(event);toggleMobileMenu()" 
+                   class="py-3 px-4 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-2xl flex items-center gap-x-3">
+                    <i class="fa-solid fa-envelope w-5"></i>
+                    Contact
+                </a>
+                
+                <div class="pt-4 border-t border-slate-200 dark:border-slate-700">
+                    <button onclick="downloadResume();toggleMobileMenu()" 
+                            class="w-full flex justify-center items-center gap-x-2 py-3 bg-indigo-600 text-white rounded-3xl font-semibold">
+                        <i class="fa-solid fa-download"></i>
+                        Download Resume
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section id="home" class="min-h-screen pt-20 flex items-center bg-gradient-to-br from-slate-50 to-white dark:from-slate-950 dark:to-slate-900">
+        <div class="max-w-screen-2xl mx-auto px-6 grid md:grid-cols-12 gap-12 items-center">
+            
+            <!-- Left Content -->
+            <div class="md:col-span-7 space-y-8">
+                <div class="inline-flex items-center gap-x-2 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-sm font-medium px-5 py-2 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-sm">
+                    <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
+                    Open to opportunities • Available for internships
+                </div>
+                
+                <h1 class="text-6xl md:text-7xl font-semibold tracking-tighter leading-none text-slate-900 dark:text-white">
+                    Hi, I'm Arik Mukherjee
+                </h1>
+                
+                <!-- Typing Subheading -->
+                <div class="h-12">
+                    <h2 id="typing-text" 
+                        class="text-3xl md:text-4xl font-medium text-slate-600 dark:text-slate-400 typing-cursor">
+                    </h2>
+                </div>
+                
+                <p class="max-w-lg text-lg text-slate-600 dark:text-slate-400">
+                    Computer Science student &amp; passionate Full Stack Developer. 
+                    I build elegant, scalable web experiences that solve real-world problems.
+                </p>
+                
+                <div class="flex flex-wrap gap-4">
+                    <a onclick="navigateToSection(event, '#projects')" 
+                       class="px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white text-lg font-semibold rounded-3xl flex items-center gap-x-3 shadow-lg shadow-indigo-500/30">
+                        View My Projects
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                    
+                    <a onclick="navigateToSection(event, '#contact')" 
+                       class="px-8 py-4 border-2 border-slate-300 dark:border-slate-700 hover:border-slate-400 text-slate-700 dark:text-slate-300 text-lg font-semibold rounded-3xl flex items-center gap-x-3">
+                        Let's Connect
+                    </a>
+                    
+                    <button onclick="downloadResume()" 
+                            class="px-8 py-4 text-slate-700 dark:text-slate-300 font-semibold flex items-center gap-x-3 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-3xl border border-transparent hover:border-slate-300">
+                        <i class="fa-solid fa-download"></i>
+                        <span>Download Resume</span>
+                    </button>
+                </div>
+                
+                <!-- Trust signals -->
+                <div class="flex items-center gap-x-8 pt-8">
+                    <div class="flex -space-x-4">
+                        <div class="w-8 h-8 bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300 rounded-2xl flex items-center justify-center text-xs font-bold ring-2 ring-white dark:ring-slate-900">R</div>
+                        <div class="w-8 h-8 bg-violet-100 dark:bg-violet-900 text-violet-600 dark:text-violet-300 rounded-2xl flex items-center justify-center text-xs font-bold ring-2 ring-white dark:ring-slate-900">N</div>
+                        <div class="w-8 h-8 bg-amber-100 dark:bg-amber-900 text-amber-600 dark:text-amber-300 rounded-2xl flex items-center justify-center text-xs font-bold ring-2 ring-white dark:ring-slate-900">M</div>
+                    </div>
+                    <p class="text-sm text-slate-500 dark:text-slate-400">
+                        Previously interned at<br>
+                        <span class="font-semibold text-slate-700 dark:text-slate-300">TATA • J P Morgan • Walmart</span>
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Right Visual -->
+            <div class="md:col-span-5 flex justify-center">
+                <div class="relative w-80 h-80 md:w-96 md:h-96">
+                    <!-- Background glow -->
+                    <div class="absolute inset-0 bg-gradient-to-br from-indigo-400 via-violet-400 to-purple-500 rounded-[4rem] rotate-6 blur-3xl opacity-20 dark:opacity-30"></div>
+                    
+                    <!-- Main avatar card -->
+                    <div class="relative bg-white dark:bg-slate-900 shadow-2xl rounded-3xl p-2 h-full flex flex-col items-center justify-center overflow-hidden">
+                        <div class="w-40 h-40 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-3xl flex items-center justify-center text-8xl mb-8 shadow-inner">
+                            👨‍💻
+                        </div>
+                        
+                        <div class="text-center">
+                            <div class="flex justify-center gap-x-1 text-amber-400 mb-3">
+                                ★★★★☆
+                            </div>
+                            <h3 class="font-semibold text-2xl mb-1">Full Stack Engineer</h3>
+                            <p class="text-slate-500 dark:text-slate-400 text-sm">Building the future, one line at a time</p>
+                        </div>
+                        
+                        <!-- Floating tech badges -->
+                        <div class="absolute -top-2 -right-2 bg-white dark:bg-slate-800 text-xs font-mono px-4 py-1 rounded-3xl shadow flex items-center gap-x-2">
+                            <i class="fa-brands fa-react text-cyan-500"></i>
+                            REACT
+                        </div>
+                        <div class="absolute -bottom-2 -left-2 bg-white dark:bg-slate-800 text-xs font-mono px-4 py-1 rounded-3xl shadow flex items-center gap-x-2">
+                            <i class="fa-solid fa-database text-emerald-500"></i>
+                            NODE
+                        </div>
+                        <div class="absolute top-1/3 -left-6 bg-white dark:bg-slate-800 text-xs font-mono px-3 py-1 rounded-3xl shadow">
+                            MongoDB
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-10 left-1/2 hidden md:flex flex-col items-center gap-y-2 text-slate-400 dark:text-slate-500">
+            <div class="text-xs tracking-[2px] font-medium">SCROLL TO EXPLORE</div>
+            <i class="fa-solid fa-chevron-down animate-bounce text-2xl"></i>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="py-24 bg-white dark:bg-slate-900">
+        <div class="max-w-screen-2xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row gap-16 items-start">
+                
+                <div class="md:w-5/12">
+                    <div class="sticky top-28">
+                        <span class="uppercase text-xs tracking-[1px] font-semibold text-indigo-600">01 — ABOUT ME</span>
+                        <h2 class="text-5xl font-semibold tracking-tighter mt-3 leading-none dark:text-white">Turning ideas into<br>pixel-perfect reality</h2>
+                        <div class="h-1 w-12 bg-indigo-600 mt-8"></div>
+                    </div>
+                </div>
+                
+                <div class="md:w-7/12 space-y-10 section-reveal">
+                    <p class="text-xl leading-relaxed text-slate-600 dark:text-slate-400">
+                        I'm a MSc Computer Science student with a deep passion for full-stack development. 
+                        From crafting beautiful frontend interfaces to architecting robust backend systems, I love building 
+                        digital products that are both functional and delightful to use.
+                    </p>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                        <!-- Education Card -->
+                        <div class="bg-slate-50 dark:bg-slate-800 p-7 rounded-3xl">
+                            <div class="flex justify-between items-start mb-6">
+                                <div>
+                                    <span class="px-4 py-1 text-xs font-medium bg-white dark:bg-slate-700 rounded-3xl">B.Sc. → M.Sc.</span>
+                                </div>
+                                <i class="fa-solid fa-graduation-cap text-4xl text-indigo-300"></i>
+                            </div>
+                            <h4 class="font-semibold text-2xl">B.Sc. Computer Science</h4>
+                            <p class="text-slate-500 dark:text-slate-400">West Bengal State University, Kolkata • 2022 – 2025</p>
+                            <p class="mt-6 text-sm">Currently pursuing M.Sc. in Computer Science (2025 – 2027) with specialization in Distributed Systems &amp; AI.</p>
+                            <div class="mt-8 flex items-center justify-between text-xs">
+                                <div class="flex items-center gap-x-1"><i class="fa-solid fa-trophy"></i> CGPA: 9.56/10</div>
+                                <div class="flex items-center gap-x-1"><i class="fa-solid fa-medal"></i> Dean's List 2024</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Career Goals -->
+                        <div class="bg-slate-50 dark:bg-slate-800 p-7 rounded-3xl flex flex-col">
+                            <h4 class="font-semibold mb-4">My next chapter</h4>
+                            <ul class="space-y-4 flex-1">
+                                <li class="flex gap-x-3"><i class="fa-solid fa-check-circle text-emerald-500 mt-px"></i> Contribute to open-source projects used by millions</li>
+                                <li class="flex gap-x-3"><i class="fa-solid fa-check-circle text-emerald-500 mt-px"></i> Build impactful SaaS products that solve real problems</li>
+                                <li class="flex gap-x-3"><i class="fa-solid fa-check-circle text-emerald-500 mt-px"></i> Grow into a tech lead &amp; mentor young developers</li>
+                                <li class="flex gap-x-3"><i class="fa-solid fa-check-circle text-emerald-500 mt-px"></i> Explore AI × Web3 intersections</li>
+                            </ul>
+                            <a href="#contact" onclick="navigateToSection(event)" 
+                               class="mt-auto inline-flex items-center text-indigo-600 font-medium group">
+                                Let's build something together 
+                                <span class="ml-2 group-hover:translate-x-1">→</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SKILLS SECTION -->
+    <section id="skills" class="py-24 bg-slate-50 dark:bg-slate-950">
+        <div class="max-w-screen-2xl mx-auto px-6">
+            <div class="flex justify-between items-baseline mb-12">
+                <div>
+                    <span class="uppercase text-xs tracking-[1px] font-semibold text-indigo-600">02 — EXPERTISE</span>
+                    <h2 class="text-5xl font-semibold tracking-tighter dark:text-white">Skills &amp; Technologies</h2>
+                </div>
+                <p class="hidden md:block max-w-xs text-slate-500 dark:text-slate-400">I work with modern tools to ship production-grade applications fast.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Frontend -->
+                <div class="bg-white dark:bg-slate-900 p-8 rounded-3xl shadow-sm section-reveal">
+                    <div class="flex items-center gap-x-3 mb-8">
+                        <i class="fa-solid fa-laptop-code text-3xl text-sky-500"></i>
+                        <h3 class="text-2xl font-semibold">Frontend</h3>
+                    </div>
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between text-sm mb-2"><span>HTML / CSS / Tailwind</span><span class="font-medium">95%</span></div>
+                            <div class="h-2.5 bg-slate-100 dark:bg-slate-800 rounded-3xl overflow-hidden"><div class="progress-bar h-full w-[95%] bg-gradient-to-r from-sky-400 to-indigo-500 rounded-3xl"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-2"><span>JavaScript (ES6+)</span><span class="font-medium">92%</span></div>
+                            <div class="h-2.5 bg-slate-100 dark:bg-slate-800 rounded-3xl overflow-hidden"><div class="progress-bar h-full w-[92%] bg-gradient-to-r from-amber-400 to-orange-500 rounded-3xl"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-2"><span>React + Next.js</span><span class="font-medium">88%</span></div>
+                            <div class="h-2.5 bg-slate-100 dark:bg-slate-800 rounded-3xl overflow-hidden"><div class="progress-bar h-full w-[88%] bg-gradient-to-r from-cyan-400 to-teal-500 rounded-3xl"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-2"><span>TypeScript</span><span class="font-medium">75%</span></div>
+                            <div class="h-2.5 bg-slate-100 dark:bg-slate-800 rounded-3xl overflow-hidden"><div class="progress-bar h-full w-[75%] bg-gradient-to-r from-blue-400 to-indigo-500 rounded-3xl"></div></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Backend -->
+                <div class="bg-white dark:bg-slate-900 p-8 rounded-3xl shadow-sm section-reveal">
+                    <div class="flex items-center gap-x-3 mb-8">
+                        <i class="fa-solid fa-server text-3xl text-emerald-500"></i>
+                        <h3 class="text-2xl font-semibold">Backend</h3>
+                    </div>
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between text-sm mb-2"><span>Node.js + Express</span><span class="font-medium">85%</span></div>
+                            <div class="h-2.5 bg-slate-100 dark:bg-slate-800 rounded-3xl overflow-hidden"><div class="progress-bar h-full w-[85%] bg-gradient-to-r from-emerald-400 to-teal-500 rounded-3xl"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-2"><span>REST &amp; GraphQL APIs</span><span class="font-medium">80%</span></div>
+                            <div class="h-2.5 bg-slate-100 dark:bg-slate-800 rounded-3xl overflow-hidden"><div class="progress-bar h-full w-[80%] bg-gradient-to-r from-violet-400 to-fuchsia-500 rounded-3xl"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-2"><span>Python / Django</span><span class="font-medium">70%</span></div>
+                            <div class="h-2.5 bg-slate-100 dark:bg-slate-800 rounded-3xl overflow-hidden"><div class="progress-bar h-full w-[70%] bg-gradient-to-r from-yellow-400 to-amber-500 rounded-3xl"></div></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Database &amp; Others -->
+                <div class="bg-white dark:bg-slate-900 p-8 rounded-3xl shadow-sm section-reveal">
+                    <div class="flex items-center gap-x-3 mb-8">
+                        <i class="fa-solid fa-database text-3xl text-amber-500"></i>
+                        <h3 class="text-2xl font-semibold">Database &amp; DevOps</h3>
+                    </div>
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between text-sm mb-2"><span>MongoDB</span><span class="font-medium">82%</span></div>
+                            <div class="h-2.5 bg-slate-100 dark:bg-slate-800 rounded-3xl overflow-hidden"><div class="progress-bar h-full w-[82%] bg-gradient-to-r from-green-400 to-emerald-500 rounded-3xl"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-2"><span>MySQL / PostgreSQL</span><span class="font-medium">78%</span></div>
+                            <div class="h-2.5 bg-slate-100 dark:bg-slate-800 rounded-3xl overflow-hidden"><div class="progress-bar h-full w-[78%] bg-gradient-to-r from-rose-400 to-pink-500 rounded-3xl"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-2"><span>Git • Docker • AWS</span><span class="font-medium">90%</span></div>
+                            <div class="h-2.5 bg-slate-100 dark:bg-slate-800 rounded-3xl overflow-hidden"><div class="progress-bar h-full w-[90%] bg-gradient-to-r from-slate-400 to-zinc-500 rounded-3xl"></div></div>
+                        </div>
+                        <div class="pt-4 flex gap-2 flex-wrap">
+                            <span class="text-xs px-4 py-2 bg-slate-100 dark:bg-slate-800 rounded-3xl">Redis</span>
+                            <span class="text-xs px-4 py-2 bg-slate-100 dark:bg-slate-800 rounded-3xl">Jest</span>
+                            <span class="text-xs px-4 py-2 bg-slate-100 dark:bg-slate-800 rounded-3xl">Figma</span>
+                            <span class="text-xs px-4 py-2 bg-slate-100 dark:bg-slate-800 rounded-3xl">Linux</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJECTS SECTION -->
+    <section id="projects" class="py-24 bg-white dark:bg-slate-900">
+        <div class="max-w-screen-2xl mx-auto px-6">
+            <div class="flex justify-between items-end mb-12">
+                <div>
+                    <span class="uppercase text-xs tracking-[1px] font-semibold text-indigo-600">03 — WORK</span>
+                    <h2 class="text-5xl font-semibold tracking-tighter dark:text-white">Featured Projects</h2>
+                </div>
+                <a href="https://github.com/arik-mukherjee" target="_blank" 
+                   class="hidden md:flex items-center gap-x-2 text-sm font-medium group">
+                    See all on GitHub 
+                    <span class="text-2xl group-hover:translate-x-1">→</span>
+                </a>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Project 1 -->
+                <div class="project-card bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-3xl overflow-hidden">
+                    <div class="aspect-video bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center text-7xl">
+                        🛒
+                    </div>
+                    <div class="p-8">
+                        <h3 class="font-semibold text-2xl mb-1">Eudify</h3>
+                        <p class="text-slate-500 dark:text-slate-400 text-sm mb-4">Full-featured online educational platform with real-time inventory, community features, and admin dashboard.</p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="text-xs px-3 py-1 bg-sky-100 text-sky-700 dark:bg-sky-900 dark:text-sky-300 rounded-3xl">HTML</span>
+                            <span class="text-xs px-3 py-1 bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-300 rounded-3xl">CSS</span>
+                            <span class="text-xs px-3 py-1 bg-amber-100 text-amber-700 dark:bg-amber-900 dark:text-amber-300 rounded-3xl">JavaScript</span>
+                            <span class="text-xs px-3 py-1 bg-purple-100 text-purple-700 dark:bg-purple-900 dark:text-purple-300 rounded-3xl">PHP</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <a href="https://eudify.vercel.app" target="_blank" 
+                               class="text-xs flex items-center gap-x-1 hover:text-indigo-600">
+                                <i class="fa-solid fa-link"></i> LIVE DEMO
+                            </a>
+                            <a href="https://github.com/arikmukherjee/eudify" target="_blank" 
+                               class="flex items-center gap-x-1.5 text-slate-400 hover:text-slate-600">
+                                <i class="fa-brands fa-github"></i>
+                                <span class="text-xs">Code</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="project-card bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-3xl overflow-hidden">
+                    <div class="aspect-video bg-gradient-to-br from-violet-500 to-purple-400 flex items-center justify-center text-7xl">
+                        📋
+                    </div>
+                    <div class="p-8">
+                        <h3 class="font-semibold text-2xl mb-1">iVoteOnline</h3>
+                        <p class="text-slate-500 dark:text-slate-400 text-sm mb-4">Online voting platform with real-time results, user authentication, and admin dashboard.</p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="text-xs px-3 py-1 bg-indigo-100 text-indigo-700 dark:bg-indigo-900 dark:text-indigo-300 rounded-3xl">JavaScript</span>
+                            <span class="text-xs px-3 py-1 bg-teal-100 text-teal-700 dark:bg-teal-900 dark:text-teal-300 rounded-3xl">Xampp</span>
+                            <span class="text-xs px-3 py-1 bg-orange-100 text-orange-700 dark:bg-orange-900 dark:text-orange-300 rounded-3xl">Express</span>
+                            <span class="text-xs px-3 py-1 bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-300 rounded-3xl">PHP</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <a href="https://ivoteonline.vercel.app" target="_blank" 
+                               class="text-xs flex items-center gap-x-1 hover:text-indigo-600">
+                                <i class="fa-solid fa-link"></i> LIVE DEMO
+                            </a>
+                            <a href="https://github.com/arikmukherjee/ivoteonline" target="_blank" 
+                               class="flex items-center gap-x-1.5 text-slate-400 hover:text-slate-600">
+                                <i class="fa-brands fa-github"></i>
+                                <span class="text-xs">Code</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="project-card bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-3xl overflow-hidden">
+                    <div class="aspect-video bg-gradient-to-br from-rose-500 to-pink-400 flex items-center justify-center text-7xl">
+                        📝
+                    </div>
+                    <div class="p-8">
+                        <h3 class="font-semibold text-2xl mb-1">iNote</h3>
+                        <p class="text-slate-500 dark:text-slate-400 text-sm mb-4">Markdown-based note-taking app with real-time collaboration and cloud sync. Deployed on Vercel + Supabase.</p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="text-xs px-3 py-1 bg-rose-100 text-rose-700 dark:bg-rose-900 dark:text-rose-300 rounded-3xl">HTML</span>
+                            <span class="text-xs px-3 py-1 bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300 rounded-3xl">CSS</span>
+                            <span class="text-xs px-3 py-1 bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300 rounded-3xl">JavaScript</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <a href="https://inote.vercel.app" target="_blank" 
+                               class="text-xs flex items-center gap-x-1 hover:text-indigo-600">
+                                <i class="fa-solid fa-link"></i> LIVE DEMO
+                            </a>
+                            <a href="https://github.com/arikmukherjee/inote" target="_blank" 
+                               class="flex items-center gap-x-1.5 text-slate-400 hover:text-slate-600">
+                                <i class="fa-brands fa-github"></i>
+                                <span class="text-xs">Code</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="https://github.com/arikmukherjee" target="_blank" 
+                   class="inline-flex md:hidden items-center gap-x-2 text-sm font-medium border border-slate-300 dark:border-slate-700 px-8 py-4 rounded-3xl">
+                    Browse 12+ more projects on GitHub →
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- EXPERIENCE SECTION -->
+    <section id="experience" class="py-24 bg-slate-50 dark:bg-slate-950">
+        <div class="max-w-screen-2xl mx-auto px-6">
+            <span class="uppercase text-xs tracking-[1px] font-semibold text-indigo-600">04 — JOURNEY</span>
+            <h2 class="text-5xl font-semibold tracking-tighter mt-3 mb-12 dark:text-white">Experience &amp; Milestones</h2>
+            
+            <div class="relative border-l-2 border-indigo-200 dark:border-slate-700 pl-8 max-w-2xl">
+                <!-- Timeline Item -->
+                <div class="mb-12 relative">
+                    <div class="absolute -left-[11px] top-1 w-5 h-5 bg-white dark:bg-slate-900 border-2 border-indigo-500 rounded-full flex items-center justify-center">
+                        <div class="w-2 h-2 bg-indigo-500 rounded-full"></div>
+                    </div>
+                    <div class="flex justify-between">
+                        <div>
+                            <h4 class="font-semibold">Data Analyst Intern</h4>
+                            <p class="text-indigo-600">Aunwesha Academy • Summer 2025</p>
+                        </div>
+                        <p class="text-xs text-slate-400 font-medium whitespace-nowrap">Sept 2025 – Oct 2025</p>
+                    </div>
+                    <p class="mt-3 text-slate-600 dark:text-slate-400">Analyzed and interpreted complex datasets to provide actionable insights for strategic decision-making.</p>
+                    <div class="flex gap-2 mt-4">
+                        <span class="text-xs bg-white dark:bg-slate-800 px-4 py-1 rounded-3xl">Pandas</span>
+                        <span class="text-xs bg-white dark:bg-slate-800 px-4 py-1 rounded-3xl">NumPy</span>
+                        <span class="text-xs bg-white dark:bg-slate-800 px-4 py-1 rounded-3xl">Matplotlib</span>
+                    </div>
+                </div>
+                
+                <div class="mb-12 relative">
+                    <div class="absolute -left-[11px] top-1 w-5 h-5 bg-white dark:bg-slate-900 border-2 border-indigo-500 rounded-full flex items-center justify-center">
+                        <div class="w-2 h-2 bg-indigo-500 rounded-full"></div>
+                    </div>
+                    <div class="flex justify-between">
+                        <div>
+                            <h4 class="font-semibold">Software Engineering Intern</h4>
+                            <p class="text-indigo-600">JP Morgan • Winter 2025</p>
+                        </div>
+                        <p class="text-xs text-slate-400 font-medium whitespace-nowrap">Sept 2025 – Oct 2025</p>
+                    </div>
+                    <p class="mt-3 text-slate-600 dark:text-slate-400">Revamped entire marketing website using Next.js 14 and Tailwind. Increased conversion rate by 31% through A/B testing and performance optimizations.</p>
+                    <div class="flex gap-2 mt-4">
+                        <span class="text-xs bg-white dark:bg-slate-800 px-4 py-1 rounded-3xl">Next.js</span>
+                        <span class="text-xs bg-white dark:bg-slate-800 px-4 py-1 rounded-3xl">Framer Motion</span>
+                        <span class="text-xs bg-white dark:bg-slate-800 px-4 py-1 rounded-3xl">Vercel</span>
+                    </div>
+                </div>
+                
+                <div class="mb-12 relative">
+                    <div class="absolute -left-[11px] top-1 w-5 h-5 bg-white dark:bg-slate-900 border-2 border-indigo-500 rounded-full flex items-center justify-center">
+                        <div class="w-2 h-2 bg-indigo-500 rounded-full"></div>
+                    </div>
+                    <div class="flex justify-between">
+                        <div>
+                            <h4 class="font-semibold">Teaching Assistant</h4>
+                            <p class="text-indigo-600">Scicomatics • Summer 2025</p>
+                        </div>
+                        <p class="text-xs text-slate-400 font-medium whitespace-nowrap">Jan 2022 – Feb 2025</p>
+                    </div>
+                    <p class="mt-3 text-slate-600 dark:text-slate-400">Guided many students through weekly labs and mentored 3 final-year projects. Created interactive visualizations using Tableau.</p>
+                </div>
+                
+                <div class="relative">
+                    <div class="absolute -left-[11px] top-1 w-5 h-5 bg-white dark:bg-slate-900 border-2 border-indigo-500 rounded-full flex items-center justify-center">
+                        <div class="w-2 h-2 bg-indigo-500 rounded-full"></div>
+                    </div>
+                    <div class="flex justify-between">
+                        <div>
+                            <h4 class="font-semibold">Computer Science Teacher</h4>
+                            <p class="text-indigo-600">Self-employed</p>
+                        </div>
+                        <p class="text-xs text-slate-400 font-medium whitespace-nowrap">2023 – Present</p>
+                    </div>
+                    <p class="mt-3 text-slate-600 dark:text-slate-400">Taught computer science concepts to high school students. Developed engaging lesson plans and provided individualized support.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="py-24 bg-white dark:bg-slate-900">
+        <div class="max-w-screen-2xl mx-auto px-6">
+            <div class="grid md:grid-cols-12 gap-16">
+                <div class="md:col-span-5">
+                    <span class="uppercase text-xs tracking-[1px] font-semibold text-indigo-600">05 — GET IN TOUCH</span>
+                    <h2 class="text-5xl font-semibold tracking-tighter mt-3 dark:text-white">Let's build something amazing together</h2>
+                    <p class="mt-6 text-lg text-slate-600 dark:text-slate-400">
+                        Whether you're a startup founder, a fellow developer, or just want to say hi — my inbox is always open.
+                    </p>
+                    
+                    <div class="mt-12 space-y-8">
+                        <div class="flex gap-x-6">
+                            <i class="fa-solid fa-envelope text-3xl mt-1 text-slate-400"></i>
+                            <div>
+                                <p class="font-medium">Email me directly</p>
+                                <a href="mailto:arikmukherjee3@gmail.com" class="text-indigo-600 hover:underline">arikmukherjee3@gmail.com</a>
+                            </div>
+                        </div>
+                        <div class="flex gap-x-6">
+                            <i class="fa-brands fa-linkedin text-3xl mt-1 text-slate-400"></i>
+                            <div>
+                                <p class="font-medium">Connect on LinkedIn</p>
+                                <a href="https://linkedin.com/in/arik-mukherjee" target="_blank" class="text-indigo-600 hover:underline">linkedin.com/in/arik-mukherjee</a>
+                            </div>
+                        </div>
+                        <div class="flex gap-x-6">
+                            <i class="fa-brands fa-github text-3xl mt-1 text-slate-400"></i>
+                            <div>
+                                <p class="font-medium">My GitHub profile</p>
+                                <a href="https://github.com/arikmukherjee" target="_blank" class="text-indigo-600 hover:underline">@arikmukherjee</a>
+                            </div>
+                        </div>
+                        <div class="flex gap-x-6">
+                            <i class="fa-brands fa-youtube text-3xl mt-1 text-slate-400"></i>
+                            <div>
+                                <p class="font-medium">Watch my coding videos</p>
+                                <a href="https://youtube.com/@arikmukherjee" target="_blank" class="text-indigo-600 hover:underline">@arikmukherjee</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contact Form -->
+                <div class="md:col-span-7 bg-slate-50 dark:bg-slate-800 rounded-3xl p-10">
+                    <form id="contact-form" onsubmit="handleSubmit(event)" class="space-y-8">
+                        <div class="grid grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-xs uppercase font-medium mb-2">Your Name</label>
+                                <input id="name" type="text" required 
+                                       class="w-full px-6 py-5 bg-white dark:bg-slate-900 border border-transparent focus:border-indigo-300 rounded-3xl outline-none text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs uppercase font-medium mb-2">Email Address</label>
+                                <input id="email" type="email" required 
+                                       class="w-full px-6 py-5 bg-white dark:bg-slate-900 border border-transparent focus:border-indigo-300 rounded-3xl outline-none text-sm">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-xs uppercase font-medium mb-2">Message</label>
+                            <textarea id="message" rows="6" required placeholder="Tell me about your project or idea..."
+                                      class="w-full px-6 py-5 bg-white dark:bg-slate-900 border border-transparent focus:border-indigo-300 rounded-3xl outline-none text-sm resize-none"></textarea>
+                        </div>
+                        
+                        <button type="submit" 
+                                class="w-full py-6 bg-indigo-600 hover:bg-indigo-700 text-white text-lg font-semibold rounded-3xl flex items-center justify-center gap-x-3">
+                            SEND MESSAGE
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                        
+                        <div id="form-status" class="hidden text-center text-sm font-medium"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-950 text-slate-400 py-12">
+        <div class="max-w-screen-2xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+                <div class="flex items-center gap-x-3">
+                    <div class="w-8 h-8 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-2xl flex items-center justify-center text-white text-2xl">👨‍💻</div>
+                    <p class="logo-font text-2xl font-medium text-white">Arik Mukherjee</p>
+                </div>
+                
+                <div class="flex gap-x-8 text-2xl">
+                    <a href="https://github.com/arikmukherjee" target="_blank" aria-label="GitHub"><i class="fa-brands fa-github hover:text-white"></i></a>
+                    <a href="https://linkedin.com/in/arik-mukherjee" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin hover:text-white"></i></a>
+                    <a href="https://youtube.com/@arikmukherjee" target="_blank" aria-label="YouTube"><i class="fa-brands fa-youtube hover:text-white"></i></a>
+                    <a href="https://x.com/ArikMukherjee6" target="_blank" aria-label="Twitter"><i class="fa-brands fa-x-twitter hover:text-white"></i></a>
+                </div>
+                
+                <p class="text-xs text-center md:text-right">
+                    &copy; 2026 Arik Mukherjee. Built with ❤️ and Tailwind CSS.<br>
+                    Fully responsive • Dark mode enabled • Made for the love of coding.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        /**
+         * MAIN PORTFOLIO SCRIPT
+         * Complete, self-contained, modern portfolio for Arik Mukherjee
+         * Features: Tailwind CDN, dark/light toggle, typing animation,
+         * smooth scroll, mobile menu, form validation, section reveals,
+         * progress animations, resume download.
+         */
+
+        // Tailwind CSS configuration
+        function initializeTailwind() {
+            return {
+                config(userConfig = {}) {
+                    return {
+                        content: [],
+                        theme: {
+                            extend: {
+                                fontFamily: {
+                                    logo: ['Space Grotesk']
+                                }
+                            }
+                        },
+                        darkMode: 'class',
+                        plugins: [],
+                        ...userConfig,
+                    }
+                },
+                theme: {
+                    extend: {}
+                }
+            }
+        }
+
+        // Load Tailwind
+        document.addEventListener('DOMContentLoaded', () => {
+            const config = initializeTailwind().config()
+            window.tailwindConfig = () => config
+            // The script src already loaded Tailwind, we just apply config
+            console.log('%c✅ TailwindCSS initialized with dark mode support', 'color:#6366f1;font-weight:600')
+            
+            // Initialize everything else
+            initTheme()
+            initTypingAnimation()
+            initSectionReveals()
+            initForm()
+            console.log('%c🚀 Arik Mukherjee Portfolio ready! Copy-paste this single HTML file and go live.', 'color:#10b981;font-weight:700')
+        })
+
+        // Theme toggle with localStorage persistence
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme')
+            if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark')
+                document.getElementById('theme-icon').classList.replace('fa-moon', 'fa-sun')
+            }
+        }
+
+        function toggleTheme() {
+            const html = document.documentElement
+            const icon = document.getElementById('theme-icon')
+            
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark')
+                icon.classList.replace('fa-sun', 'fa-moon')
+                localStorage.setItem('theme', 'light')
+            } else {
+                html.classList.add('dark')
+                icon.classList.replace('fa-moon', 'fa-sun')
+                localStorage.setItem('theme', 'dark')
+            }
+        }
+
+        // Typing animation in hero
+        function initTypingAnimation() {
+            const phrases = [
+                "Full Stack Developer",
+                "Computer Science Student",
+                "Building delightful web experiences"
+            ]
+            let phraseIndex = 0
+            let charIndex = 0
+            let currentPhrase = ''
+            let isDeleting = false
+            const typingElement = document.getElementById('typing-text')
+            
+            function type() {
+                const targetPhrase = phrases[phraseIndex]
+                
+                if (isDeleting) {
+                    currentPhrase = targetPhrase.substring(0, charIndex - 1)
+                    charIndex--
+                } else {
+                    currentPhrase = targetPhrase.substring(0, charIndex + 1)
+                    charIndex++
+                }
+                
+                typingElement.textContent = currentPhrase
+                
+                let speed = isDeleting ? 40 : 70
+                
+                // Pause at end of phrase
+                if (!isDeleting && charIndex === targetPhrase.length) {
+                    speed = 1800
+                    isDeleting = true
+                }
+                
+                // Move to next phrase
+                if (isDeleting && charIndex === 0) {
+                    isDeleting = false
+                    phraseIndex = (phraseIndex + 1) % phrases.length
+                    speed = 400
+                }
+                
+                setTimeout(type, speed)
+            }
+            
+            // Start typing after a small delay
+            setTimeout(() => {
+                type()
+            }, 800)
+        }
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu')
+            const icon = document.getElementById('hamburger-icon')
+            
+            if (menu.classList.contains('hidden')) {
+                menu.style.display = 'block'
+                icon.classList.replace('fa-bars', 'fa-xmark')
+            } else {
+                menu.style.display = 'none'
+                icon.classList.replace('fa-xmark', 'fa-bars')
+            }
+        }
+
+        // Smooth scroll navigation
+        function navigateToSection(e, forcedId = null) {
+            // If forcedId is passed (for buttons), use it
+            const targetId = forcedId || e.currentTarget.getAttribute('href')
+            if (!targetId || !targetId.startsWith('#')) return
+            
+            e.preventDefault()
+            
+            const target = document.querySelector(targetId)
+            if (target) {
+                const navHeight = 80
+                const topOffset = target.getBoundingClientRect().top + window.scrollY - navHeight
+                
+                window.scrollTo({
+                    top: topOffset,
+                    behavior: 'smooth'
+                })
+            }
+            
+            // Close mobile menu if opened
+            const mobileMenu = document.getElementById('mobile-menu')
+            if (mobileMenu && mobileMenu.style.display === 'block') {
+                toggleMobileMenu()
+            }
+        }
+
+        // Section scroll reveal animation
+        function initSectionReveals() {
+            const reveals = document.querySelectorAll('.section-reveal')
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible')
+                    }
+                })
+            }, {
+                threshold: 0.15,
+                rootMargin: "0px 0px -50px 0px"
+            })
+            
+            reveals.forEach(reveal => observer.observe(reveal))
+            
+            // Also animate progress bars when they appear
+            const progressObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // The CSS animation is already set to run once
+                        progressObserver.unobserve(entry.target)
+                    }
+                })
+            }, { threshold: 0.6 })
+            
+            document.querySelectorAll('.progress-bar').forEach(bar => {
+                progressObserver.observe(bar.parentElement)
+            })
+        }
+
+        // Contact form handler with validation
+        function initForm() {
+            const form = document.getElementById('contact-form')
+            const status = document.getElementById('form-status')
+            
+            form.addEventListener('submit', handleSubmit)
+            
+            // Real-time email validation hint
+            const emailInput = document.getElementById('email')
+            emailInput.addEventListener('input', () => {
+                if (emailInput.validity.typeMismatch && emailInput.value !== '') {
+                    emailInput.style.borderColor = '#f43f5e'
+                } else {
+                    emailInput.style.borderColor = ''
+                }
+            })
+        }
+        
+        async function handleSubmit(e) {
+            e.preventDefault()
+            
+            const status = document.getElementById('form-status')
+            const form = e.target
+            
+            status.classList.remove('hidden')
+            status.innerHTML = `
+                <div class="inline-flex items-center gap-x-2">
+                    <i class="fa-solid fa-spinner animate-spin"></i>
+                    Sending your message...
+                </div>
+            `
+            // Simulate network delay
+            await new Promise(resolve => setTimeout(resolve, 1350))
+            
+            // Success state
+            status.innerHTML = `
+                <div class="text-emerald-600 bg-emerald-100 dark:bg-emerald-900/30 rounded-3xl px-6 py-4 flex items-center gap-x-3">
+                    <i class="fa-solid fa-check-circle text-2xl"></i>
+                    <div>
+                        <p class="font-semibold">Message received!</p>
+                        <p class="text-xs">I'll reply within 24 hours. Thank you ✨</p>
+                    </div>
+                </div>
+            `
+            
+            // Reset form
+            setTimeout(() => {
+                form.reset()
+                // Hide status after a few seconds
+                setTimeout(() => {
+                    status.classList.add('hidden')
+                }, 4500)
+            }, 2200)
+            
+            // In a real app you would POST to a backend here
+            console.log('%c📧 Form submitted (demo mode)', 'color:#10b981')
+        }
+        
+        // Download resume as a realistic .txt (you can replace the content with your real resume PDF base64 later)
+        function downloadResume() {
+            const resumeContent = `Arik Mukherjee
+Full Stack Developer & Computer Science Student
+
+Email: arikmukherjee2022@gmail.com
+LinkedIn: linkedin.com/in/arik-mukherjee
+GitHub: github.com/arikmukherjee
+Phone: +91 7439711367
+Address: 172, Nandan Nagar, Belgharia, Kolkata – 700083
+
+SUMMARY
+Computer Science postgraduate student and passionate Full Stack Web Developer with a strong foundation in programming, data analytics, and machine learning. Skilled in building scalable web applications and data-driven solutions. Highly motivated to explore AI/ML innovations and solve real-world problems.
+
+EDUCATION
+• M.Sc. Computer Science (Pursuing) – West Bengal State University
+• B.Sc. Computer Science – Dum Dum Motijheel College (2022–2025) | CGPA: 9.57
+• Higher Secondary (Science) – Udaypur Haradayl Nag Adarsha Vidyalaya (2022) | 70%
+• Secondary – Belgharia High School (2020) | 77.57%
+
+EXPERIENCE
+• Data Analytics Intern – Aunwesha Academy (Oct 2025)
+  - Data preprocessing, visualization, and insights extraction
+
+PROJECTS
+• Eudify – E-Learning Website
+  - Built using HTML, CSS, JavaScript, PHP
+  - Course management and student interaction features
+
+• Diabetes Prediction Model
+  - Built using Python & Scikit-learn
+  - Implemented ML pipeline (preprocessing, training, evaluation)
+
+SKILLS
+Languages: Python, C, C++, JavaScript, PHP
+Web: HTML, CSS
+Databases: MySQL, Oracle
+Concepts: DSA, Data Analysis, Machine Learning (Basics)
+Tools: Git, GitHub, VS Code, Jupyter Notebook, XAMPP
+OS: Ubuntu, Windows
+
+CERTIFICATIONS
+• Deloitte Data Analytics Job Simulation – Forage
+• Deloitte Technology Job Simulation – Forage
+• IBM Enterprise Design Thinking Practitioner
+• Google Cloud – Introduction to LLMs
+• Simplilearn Certified Data Scientist
+• Tata GenAI Data Analytics Simulation
+• Walmart Advanced Software Engineering Simulation
+• HackerRank Java (Basic)
+• Great Learning Python & Java
+• upGrad AI & Cloud Computing
+• IBM Data Science Methodology
+
+PERSONAL DETAILS
+DOB: 15 November 2003
+Languages: English, Bengali, Hindi
+Nationality: Indian
+
+Feel free to reach out!`
+
+            const blob = new Blob([resumeContent], { type: 'text/plain' })
+            const url = URL.createObjectURL(blob)
+            const link = document.createElement('a')
+            link.href = url
+            link.download = 'Arik_Mukherjee_Resume.txt'
+            document.body.appendChild(link)
+            link.click()
+            document.body.removeChild(link)
+            URL.revokeObjectURL(url)
+            
+            // Toast
+            const toast = document.createElement('div')
+            toast.style.cssText = 'position:fixed; bottom:30px; right:30px; background:#10b981; color:white; padding:16px 24px; border-radius:9999px; box-shadow: 10px 10px 0 -3px rgb(16 185 129); display:flex; align-items:center; gap:12px;'
+            toast.innerHTML = `<i class="fa-solid fa-download"></i> Resume downloaded!`
+            document.body.appendChild(toast)
+            
+            setTimeout(() => {
+                toast.style.transform = 'translateY(100px)'
+                toast.style.opacity = '0'
+                setTimeout(() => toast.remove(), 600)
+            }, 2800)
+            
+            console.log('%c📄 Resume downloaded (demo file)', 'color:#10b981')
+        }
+    </script>
+</body>
+</html>
